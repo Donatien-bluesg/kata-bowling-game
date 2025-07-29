@@ -17,6 +17,7 @@ export class Game implements GameInterface {
       throw new Error('Pin number should be <= 10')
     }
 
+    this.gameScore = this.gameScore + pins;
 
   };
   

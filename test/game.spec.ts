@@ -51,4 +51,14 @@ describe("Game", () => {
           (game.roll(6))).toThrow('Pins cannot be larger than No of pins left'
         );
     });
+
+    it("should have game state of spare", () => {
+        game = new Game()
+        game.roll(5)
+        game.roll(5)
+        
+        expect(
+          game.getState().toBe(GameState.SPARE)
+        );
+    });
 });

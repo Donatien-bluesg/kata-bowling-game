@@ -3,6 +3,7 @@ import { GameInterface } from "./game.interface";
 export class Game implements GameInterface {
 
   private gameScore: number = 0;
+  private currentPins: number = 10;
   
   roll(pins: number): void {
     if (!pins) {
@@ -17,7 +18,12 @@ export class Game implements GameInterface {
       throw new Error('Pin number should be <= 10')
     }
 
+    if (pins > this.currentPins) {
+      throw new Error('Pins cannot be larger than No of pins left')
+    }
+
     this.gameScore = this.gameScore + pins;
+    this.currentPins = this.currentPins - pins;
 
   };
   

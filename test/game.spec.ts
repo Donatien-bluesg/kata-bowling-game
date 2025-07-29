@@ -48,7 +48,7 @@ describe("Game", () => {
         game.roll(5)
         
         expect(() => 
-          (game.roll(6))).toThrow('pins > No of pins left'
+          (game.roll(6))).toThrow('Pins cannot be larger than No of pins left'
         );
     });
 });

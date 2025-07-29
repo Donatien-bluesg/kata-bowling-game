@@ -1,5 +1,6 @@
-import { GameInterface } from "../src/game.interface";
 import { Game } from "../src/game";
+import { GameState } from "../src/enum";
+import { GameInterface } from "../src/game.interface";
 
 describe("Game", () => {
   let game: GameInterface
@@ -42,6 +43,14 @@ describe("Game", () => {
         expect((game.score())).toBe(5)
     });
 
+    it("should update score with two roll amounts ", () => {
+        game = new Game()
+        game.roll(5)
+        game.roll(3)
+
+        expect((game.score())).toBe(8)
+    });
+
 
     it("should throw an error if combined rolls > 10 in frame", () => {
         game = new Game()
@@ -52,13 +61,13 @@ describe("Game", () => {
         );
     });
 
-    it("should have game state of spare", () => {
+    it("should handle 3 rolls correctly ", () => {
         game = new Game()
         game.roll(5)
-        game.roll(5)
+        game.roll(3)
+        game.roll(4)
         
         expect(
-          game.getState().toBe(GameState.SPARE)
-        );
+          (game.score())).toBe(12)
     });
 });

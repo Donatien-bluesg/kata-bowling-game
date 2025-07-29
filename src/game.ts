@@ -1,10 +1,14 @@
+import { GameState } from "./enum";
 import { GameInterface } from "./game.interface";
 
 export class Game implements GameInterface {
 
   private gameScore: number = 0;
   private currentPins: number = 10;
-  
+  private gameState: GameState
+  private frameNumber: number = 1;
+  private ballsThrownInFrame: number = 0;
+    
   roll(pins: number): void {
     if (!pins) {
       throw new Error('Pin number should not be null')
@@ -25,9 +29,23 @@ export class Game implements GameInterface {
     this.gameScore = this.gameScore + pins;
     this.currentPins = this.currentPins - pins;
 
+    this.ballsThrownInFrame++;
+    if (this.ballsThrownInFrame >= 2) {
+      this.resetBallsThrown()
+      this.incrementFrame()
+    }
   };
   
   score(): number {
     return this.gameScore;
   };
+
+  private resetBallsThrown() {
+    this.ballsThrownInFrame = 0;
+    this.currentPins = 10;
+  }
+
+  private incrementFrame() {
+    this.frameNumber++;
+  }
 }

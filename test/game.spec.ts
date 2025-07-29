@@ -41,4 +41,14 @@ describe("Game", () => {
 
         expect((game.score())).toBe(5)
     });
+
+
+    it("should throw an error if combined rolls > 10 in frame", () => {
+        game = new Game()
+        game.roll(5)
+        
+        expect(() => 
+          (game.roll(6))).toThrow('pins > No of pins left'
+        );
+    });
 });

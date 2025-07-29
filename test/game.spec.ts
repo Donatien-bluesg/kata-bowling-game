@@ -70,4 +70,14 @@ describe("Game", () => {
         expect(
           (game.score())).toBe(12)
     });
+
+    it("should handle 10 frames correctly ", () => {
+        game = new Game()
+        for (let i = 0; i < 20; i++) {
+            game.roll(1)
+        }
+
+
+        expect(() => game.roll(1)).toThrow('Game Ended!')
+    });
 });

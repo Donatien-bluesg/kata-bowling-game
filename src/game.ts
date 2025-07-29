@@ -26,6 +26,10 @@ export class Game implements GameInterface {
       throw new Error('Pins cannot be larger than No of pins left')
     }
 
+    if (this.frameNumber > 10) {
+      throw new Error('Game Ended!')
+    }
+
     this.gameScore = this.gameScore + pins;
     this.currentPins = this.currentPins - pins;
 

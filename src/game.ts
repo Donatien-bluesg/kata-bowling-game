@@ -15,6 +15,10 @@ class Frame {
     if (this.rolls.reduce((pins, sum) => sum + pins, 0) + pins > this.maxPins)
       throw new InvalidPinsInFrameError(this.maxPins);
   }
+
+  add(pins: number): void {
+    this.rolls.push(pins);
+  }
 }
 
 export class Game implements GameInterface {
@@ -29,7 +33,7 @@ export class Game implements GameInterface {
 
     this.currentFrame().validate(pins);
 
-    this.currentFrame().rolls.push(pins);
+    this.currentFrame().add(pins);
 
     this.rolls.push(pins);
   }

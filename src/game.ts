@@ -11,7 +11,8 @@ export class Game implements GameInterface {
     if (pins === null || pins === undefined) throw new EmptyPinsError();
     if (pins < 0) throw new InvalidPinsError();
 
-    if (this.currentFrame().isComplete()) this.frames.push(new Frame());
+    if (this.currentFrame().isComplete())
+      this.frames.push(this.currentFrame().prepareNextFrame());
 
     this.currentFrame().add(pins);
 
@@ -19,7 +20,7 @@ export class Game implements GameInterface {
   }
 
   score(): number {
-    return this.rolls.reduce((pins, sum) => sum + pins, 0);
+    return this.frames.reduce((sum, frame) => sum + frame.score(), 0);
   }
 
   private currentFrame(): Frame {

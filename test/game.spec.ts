@@ -39,4 +39,15 @@ describe("Game", () => {
 
     expect(() => g.roll(7)).toThrow("A frame cannot go over 10 pins");
   });
+
+  it("should give an extra bonus when a spare is done", () => {
+    g.roll(4);
+    g.roll(0);
+    g.roll(6);
+    g.roll(4); // Spare
+    g.roll(3);
+    g.roll(7); // Spare, but no bonus yet
+
+    expect(g.score()).toBe(27);
+  });
 });

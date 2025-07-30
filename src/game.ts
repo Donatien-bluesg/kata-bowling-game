@@ -13,6 +13,6 @@ export class Game implements GameInterface {
   }
 
   score(): number {
-    return this.rolls.reduce((pins, sum) => (sum += pins), 0);
+    return this.rolls.reduce((pins, sum) => sum + pins, 0);
   }
 }

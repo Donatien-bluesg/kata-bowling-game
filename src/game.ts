@@ -18,8 +18,7 @@ export class Game implements GameInterface {
     if (pins === null || pins === undefined) throw new EmptyPinsError();
     if (pins < 0) throw new InvalidPinsError();
 
-    if (this.frames[this.frames.length - 1].isComplete())
-      this.frames.push(new Frame());
+    if (this.currentFrame().isComplete()) this.frames.push(new Frame());
 
     if (
       this.currentFrame().rolls.reduce((pins, sum) => sum + pins, 0) + pins >
@@ -27,7 +26,7 @@ export class Game implements GameInterface {
     )
       throw new Error("A frame cannot go over 10 pins");
 
-    this.frames[this.frames.length - 1].rolls.push(pins);
+    this.currentFrame().rolls.push(pins);
 
     this.rolls.push(pins);
   }

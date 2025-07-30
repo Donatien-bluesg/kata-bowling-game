@@ -4,7 +4,6 @@ import { InvalidPinsError } from "./errors/invalid-pins.error";
 import { Frame } from "./frame";
 
 export class Game implements GameInterface {
-  private rolls: number[] = [];
   private frames: Frame[] = [new Frame()];
 
   roll(pins: number) {
@@ -15,8 +14,6 @@ export class Game implements GameInterface {
       this.frames.push(this.currentFrame().prepareNextFrame());
 
     this.currentFrame().add(pins);
-
-    this.rolls.push(pins);
   }
 
   score(): number {

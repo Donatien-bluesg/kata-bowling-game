@@ -9,6 +9,6 @@ export class Game implements GameInterface {
   }
 
   score(): number {
-    return null;
+    return 0;
   }
 }

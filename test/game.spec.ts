@@ -19,4 +19,8 @@ describe("Game", () => {
   it("should not throw an error when zero pins is given", () => {
     expect(() => g.roll(0)).not.toThrow();
   });
+
+  it("should start the game with a score of zero", () => {
+    expect(g.score()).toBe(0);
+  });
 });

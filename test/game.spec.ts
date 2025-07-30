@@ -31,4 +31,12 @@ describe("Game", () => {
 
     expect(g.score()).toBe(10);
   });
+
+  it("should throw an error if the number of pins rolled in a 2 balls frame is higher than 10", () => {
+    g.roll(4);
+    g.roll(0);
+    g.roll(6);
+
+    expect(() => g.roll(7)).toThrow("A frame cannot go over 10 pins");
+  });
 });

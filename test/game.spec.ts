@@ -23,4 +23,12 @@ describe("Game", () => {
   it("should start the game with a score of zero", () => {
     expect(g.score()).toBe(0);
   });
+
+  it("should add the number of pins hit to the score", () => {
+    g.roll(4);
+    g.roll(0);
+    g.roll(6);
+
+    expect(g.score()).toBe(10);
+  });
 });

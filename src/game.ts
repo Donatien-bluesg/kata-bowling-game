@@ -13,8 +13,6 @@ export class Game implements GameInterface {
 
     if (this.currentFrame().isComplete()) this.frames.push(new Frame());
 
-    this.currentFrame().validate(pins);
-
     this.currentFrame().add(pins);
 
     this.rolls.push(pins);

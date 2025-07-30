@@ -14,6 +14,8 @@ export class Frame {
   }
 
   add(pins: number): void {
+    this.validate(pins);
+
     this.rolls.push(pins);
   }
 }

@@ -8,7 +8,7 @@ export class Frame {
     return this.rolls.length === 2;
   }
 
-  validate(pins: number): void {
+  private validate(pins: number): void {
     if (this.rolls.reduce((pins, sum) => sum + pins, 0) + pins > this.maxPins)
       throw new InvalidPinsInFrameError(this.maxPins);
   }

@@ -50,4 +50,16 @@ describe("Game", () => {
 
     expect(g.score()).toBe(27);
   });
+
+  it("should give an double bonus when a strike is done, and the frame should end after the first roll", () => {
+    g.roll(4);
+    g.roll(0);
+    g.roll(10); // Strike
+    g.roll(10); // Strike
+    g.roll(4);
+    g.roll(6); // Spare
+    g.roll(7);
+
+    expect(g.score()).toBe(4 + 24 + 20 + 17 + 7);
+  });
 });

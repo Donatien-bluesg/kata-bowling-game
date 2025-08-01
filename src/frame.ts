@@ -1,16 +1,16 @@
 import { InvalidPinsInFrameError } from "./errors/invalid-pins-in-frame.error";
 
 export class Frame {
-  private maxPins: number = 10;
-  private rolls: number[] = [];
+  protected readonly maxPins: number = 10;
+  protected readonly rolls: number[] = [];
   private nextFrame: Frame = null;
 
   isComplete(): boolean {
-    return this.allPinsAreDown() || this.rolls.length === 2;
+    return this.allPinsAreDown() || this.nbOfRolls() === 2;
   }
 
-  prepareNextFrame(): Frame {
-    this.nextFrame = new Frame();
+  prepareNextFrame(frame: Frame = new Frame()): Frame {
+    this.nextFrame = frame;
     return this.nextFrame;
   }
 
@@ -44,12 +44,16 @@ export class Frame {
     return this.rolls.reduce((pins, sum) => sum + pins, 0);
   }
 
-  private validate(pins: number): void {
+  protected validate(pins: number): void {
     if (this.score() + pins > this.maxPins)
       throw new InvalidPinsInFrameError(this.maxPins);
   }
 
-  private allPinsAreDown(): boolean {
+  protected nbOfRolls(): number {
+    return this.rolls.length;
+  }
+
+  protected allPinsAreDown(): boolean {
     return this.sum() === this.maxPins;
   }
 

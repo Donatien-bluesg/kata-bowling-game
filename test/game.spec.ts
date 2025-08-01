@@ -64,16 +64,30 @@ describe("Game", () => {
   });
 
   describe("end of game", () => {
-    it("should throw an error when rolling after the game is over", () => {
-      Array(10)
+    beforeEach(() => {
+      Array(9)
         .fill(1)
         .forEach(() => {
-          // 10 normal frames
+          // 9 normal frames: starting the final frame with the score 72
           g.roll(4);
           g.roll(4);
         });
+    });
+
+    it("should throw an error when rolling after the game is over", () => {
+      g.roll(4);
+      g.roll(4); // Complete the final frame.
 
       expect(() => g.roll(4)).toThrow("The game is already over");
+    });
+
+    it("should include an extra roll if a spare is made in the end frame", () => {
+      g.roll(4);
+      g.roll(6); // Spare in the final frame
+
+      g.roll(3);
+      expect(() => g.roll(4)).toThrow("The game is already over");
+      expect(g.score()).toBe(72 + 13 + 3);
     });
   });
 });

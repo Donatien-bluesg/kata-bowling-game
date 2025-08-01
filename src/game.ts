@@ -3,6 +3,7 @@ import { EmptyPinsError } from "./errors/empty-pins.error";
 import { InvalidPinsError } from "./errors/invalid-pins.error";
 import { Frame } from "./frame";
 import { GameOverError } from "./errors/game-over.error";
+import { EndFrame } from "./end-frame";
 
 export class Game implements GameInterface {
   private totalNbFrame: number = 10;
@@ -13,7 +14,9 @@ export class Game implements GameInterface {
     if (pins < 0) throw new InvalidPinsError();
 
     if (this.currentFrame().isComplete()) {
-      if (this.frames.length < this.totalNbFrame)
+      if (this.frames.length === this.totalNbFrame - 1) {
+        this.frames.push(this.currentFrame().prepareNextFrame(new EndFrame()));
+      } else if (this.frames.length < this.totalNbFrame)
         this.frames.push(this.currentFrame().prepareNextFrame());
       else throw new GameOverError();
     }

@@ -1,28 +1,30 @@
 import { Frame } from "./frame";
 import { InvalidPinsInFrameError } from "./errors/invalid-pins-in-frame.error";
+import { Game } from "./game";
 
 export class EndFrame extends Frame {
   isComplete(): boolean {
     return (
-      (!this.allPinsAreDown() && this.nbOfRolls() === 2) ||
+      (this.rolls[0] !== 10 &&
+        !this.allPinsAreDown() &&
+        this.nbOfRolls() === 2) ||
       this.nbOfRolls() === 3
     );
   }
 
   protected validate(pins: number) {
-    if (this.nbOfRolls() === 1) super.validate(pins);
+    if (this.nbOfRolls() === 1 && this.rolls[0] !== 10) super.validate(pins);
     else if (pins > this.maxPins)
       throw new InvalidPinsInFrameError(this.maxPins);
   }
 
   score(): number {
-    let score = super.score();
+    const endGame = new Game();
 
-    if (this.nbOfRolls() > 2) {
-      // Bonus on the last roll
-      score += this.rolls[2];
+    for (const r of this.rolls) {
+      endGame.roll(r);
     }
 
-    return score;
+    return endGame.score();
   }
 }

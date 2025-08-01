@@ -89,5 +89,14 @@ describe("Game", () => {
       expect(() => g.roll(4)).toThrow("The game is already over");
       expect(g.score()).toBe(72 + 13 + 3);
     });
+
+    it("should include 2 extra rolls if 2 strikes are made in the end frame", () => {
+      g.roll(10); // first Strike
+      g.roll(10); // second Strike
+      g.roll(3);
+
+      expect(() => g.roll(4)).toThrow("The game is already over");
+      expect(g.score()).toBe(72 + 23 + 13 + 3);
+    });
   });
 });

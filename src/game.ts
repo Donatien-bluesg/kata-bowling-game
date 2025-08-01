@@ -5,6 +5,7 @@ import { Frame } from "./frame";
 import { GameOverError } from "./errors/game-over.error";
 
 export class Game implements GameInterface {
+  private totalNbFrame: number = 10;
   private frames: Frame[] = [new Frame()];
 
   roll(pins: number) {
@@ -12,7 +13,7 @@ export class Game implements GameInterface {
     if (pins < 0) throw new InvalidPinsError();
 
     if (this.currentFrame().isComplete()) {
-      if (this.frames.length < 10)
+      if (this.frames.length < this.totalNbFrame)
         this.frames.push(this.currentFrame().prepareNextFrame());
       else throw new GameOverError();
     }

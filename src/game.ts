@@ -2,6 +2,7 @@ import { GameInterface } from "./game.interface";
 import { EmptyPinsError } from "./errors/empty-pins.error";
 import { InvalidPinsError } from "./errors/invalid-pins.error";
 import { Frame } from "./frame";
+import { GameOverError } from "./errors/game-over.error";
 
 export class Game implements GameInterface {
   private frames: Frame[] = [new Frame()];
@@ -13,7 +14,7 @@ export class Game implements GameInterface {
     if (this.currentFrame().isComplete()) {
       if (this.frames.length < 10)
         this.frames.push(this.currentFrame().prepareNextFrame());
-      else throw new Error("The game is already over");
+      else throw new GameOverError();
     }
 
     this.currentFrame().add(pins);

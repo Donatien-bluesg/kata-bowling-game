@@ -10,8 +10,11 @@ export class Game implements GameInterface {
     if (pins === null || pins === undefined) throw new EmptyPinsError();
     if (pins < 0) throw new InvalidPinsError();
 
-    if (this.currentFrame().isComplete())
-      this.frames.push(this.currentFrame().prepareNextFrame());
+    if (this.currentFrame().isComplete()) {
+      if (this.frames.length < 10)
+        this.frames.push(this.currentFrame().prepareNextFrame());
+      else throw new Error("The game is already over");
+    }
 
     this.currentFrame().add(pins);
   }

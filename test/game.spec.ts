@@ -62,4 +62,18 @@ describe("Game", () => {
 
     expect(g.score()).toBe(4 + 24 + 20 + 17 + 7);
   });
+
+  describe("end of game", () => {
+    it("should throw an error when rolling after the game is over", () => {
+      Array(10)
+        .fill(1)
+        .forEach(() => {
+          // 10 normal frames
+          g.roll(4);
+          g.roll(4);
+        });
+
+      expect(() => g.roll(4)).toThrow("The game is already over");
+    });
+  });
 });
